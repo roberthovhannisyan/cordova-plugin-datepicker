@@ -3,6 +3,42 @@
  * Reused and ported to Android plugin by Daniel van 't Oever
  */
 
+(function(){
+var d = new Date('2011-06-02T09:34:29+02:00');
+if(isNaN(d) || d.getUTCMonth()!== 5 || d.getUTCDate()!== 2 || d.getUTCHours()!== 7 || d.getUTCMinutes()!== 34){
+    Date.fromISO= function(s){
+        var day, tz,
+        rx=/^(\d{4}\-\d\d\-\d\d([tT][\d:\.]*)?)([zZ]|([+\-])(\d\d):(\d\d))?$/,
+        p= rx.exec(s) || [];
+        if(p[1]){
+            day= p[1].split(/\D/);
+            for(var i= 0, L= day.length; i<L; i++){
+                day[i]= parseInt(day[i], 10) || 0;
+            }
+            day[1]-= 1;
+            day= new Date(Date.UTC.apply(Date, day));
+            if(!day.getDate()) return NaN;
+            if(p[5]){
+                tz= (parseInt(p[5], 10)*60);
+                if(p[6]) tz+= parseInt(p[6], 10);
+                if(p[4]== '+') tz*= -1;
+                if(tz) day.setUTCMinutes(day.getUTCMinutes()+ tz);
+            }
+            return day;
+        }
+        return NaN;
+    }
+}
+else{
+    Date.fromISO= function(s){
+        if(! isNaN(Date.parse(s))) {
+            return new Date(s);
+        }
+        return NaN;
+    }
+}
+})()
+
 /**
  * Constructor
  */
@@ -44,7 +80,7 @@ DatePicker.prototype.show = function(options, cb, errCb) {
 		todayText: '',
 		nowText: '',
 		is24Hour: false,
-    androidTheme : window.datePicker.ANDROID_THEMES.THEME_TRADITIONAL, // Default theme
+		androidTheme : window.datePicker.ANDROID_THEMES.THEME_TRADITIONAL, // Default theme
 	};
 
 	for (var key in defaults) {
@@ -53,13 +89,11 @@ DatePicker.prototype.show = function(options, cb, errCb) {
 		}
 	}
 
-	//this._callback = cb;
-
 	var callback = function(message) {
 		if(message != 'error'){
-			var timestamp = Date.parse(message);
-			if(isNaN(timestamp) == false) {
-				cb(new Date(message));
+		    var date = Date.fromISO(message);
+			if(! isNaN(date)) {
+				cb(date);
 			}
 	        else {
 	            cb();
