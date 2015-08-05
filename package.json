@@ -1,9 +1,9 @@
 {
-  "name": "cordova-plugin-datepicker",
+  "name": "am.armsoft.plugins.datepicker",
   "version": "0.8.6",
   "description": "Cordova DatePicker Plugin",
   "cordova": {
-    "id": "cordova-plugin-datepicker",
+    "id": "am.armsoft.plugins.datepicker",
     "platforms": [
       "ios",
       "android",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/VitaliiBlagodir/cordova-plugin-datepicker.git"
+    "url": "https://github.com/roberthovhannisyan/cordova-plugin-datepicker.git"
   },
   "keywords": [
     "cordova",
@@ -22,6 +22,6 @@
     "cordova-android",
     "cordova-windows"
   ],
-  "author": "Vitalii Blagodir <vitalii.blagodir@gmail.com>",
+  "author": "Robert Hovhannisyan",
   "license": "Apache 2.0"
 }
