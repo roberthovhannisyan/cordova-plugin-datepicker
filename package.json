@@ -1,9 +1,9 @@
 {
-  "name": "am.armsoft.plugins.datepicker",
+  "name": "cordova-plugin-armsoft-datepicker",
   "version": "0.8.9",
   "description": "Cordova DatePicker Plugin",
   "cordova": {
-    "id": "am.armsoft.plugins.datepicker",
+    "id": "cordova-plugin-armsoft-datepicker",
     "platforms": [
       "ios",
       "android",
